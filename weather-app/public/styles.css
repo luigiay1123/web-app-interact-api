@@ -1,0 +1,26 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: #f0f8ff;
+  margin: 0;
+  padding: 50px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+}
+
+input,
+button {
+  padding: 10px;
+  margin: 10px;
+}
+
+.weather-info {
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+}
