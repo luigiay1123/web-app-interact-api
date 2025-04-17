@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f0f2f5;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+input,
+button {
+  padding: 10px;
+  font-size: 1rem;
+  margin: 5px;
+}
+
+.price {
+  font-size: 2rem;
+  color: #2b9348;
+}
