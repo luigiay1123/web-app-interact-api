@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UV Forecast</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <h1>🌞 UV Forecast</h1>
+
+    <form action="/forecast" method="POST">
+      <input
+        type="text"
+        name="location"
+        placeholder="Enter city or address"
+        required
+      />
+      <button type="submit">Get Forecast</button>
+    </form>
+
+    <% if (error) { %>
+    <p><%= error %></p>
+    <% } %> <% if (forecastData) { %>
+    <canvas id="uvChart" width="600" height="300"></canvas>
+
+    <h2>Hourly Sunscreen Advice</h2>
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>UV Index</th>
+        <th>Advice</th>
+      </tr>
+      <% forecastData.forEach(item => { %>
+      <tr>
+        <td>
+          <%= new Date(item.time).toLocaleTimeString([], { hour: '2-digit',
+          minute: '2-digit' }) %>
+        </td>
+        <td><%= item.uv %></td>
+        <td><%= item.advice %></td>
+      </tr>
+      <% }) %>
+    </table>
+
+    <script>
+      const data = {
+        labels: <%= JSON.stringify(forecastData.map(item => new Date(item.time).toLocaleTimeString())) %>,
+        datasets: [{
+          label: 'UV Index',
+          data: <%= JSON.stringify(forecastData.map(item => item.uv)) %>,
+          fill: true,
+          borderColor: 'orange',
+          backgroundColor: 'rgba(255,165,0,0.2)',
+          tension: 0.3
+        }]
+      };
+      new Chart(document.getElementById('uvChart'), { type: 'line', data });
+    </script>
+    <% } %>
+  </body>
+</html>
