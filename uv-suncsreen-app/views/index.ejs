@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>UV Forecast</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
     <h1>🌞 UV Forecast</h1>
@@ -22,7 +22,9 @@
     <% if (error) { %>
     <p><%= error %></p>
     <% } %> <% if (forecastData) { %>
-    <canvas id="uvChart" width="600" height="300"></canvas>
+    <!-- <div class="chartcontainer">
+      <canvas id="uvChart"></canvas>
+    </div> -->
 
     <h2>Hourly Sunscreen Advice</h2>
     <table>
@@ -43,20 +45,12 @@
       <% }) %>
     </table>
 
-    <script>
-      const data = {
-        labels: <%= JSON.stringify(forecastData.map(item => new Date(item.time).toLocaleTimeString())) %>,
-        datasets: [{
-          label: 'UV Index',
-          data: <%= JSON.stringify(forecastData.map(item => item.uv)) %>,
-          fill: true,
-          borderColor: 'orange',
-          backgroundColor: 'rgba(255,165,0,0.2)',
-          tension: 0.3
-        }]
-      };
-      new Chart(document.getElementById('uvChart'), { type: 'line', data });
-    </script>
+    <!-- <script type="module">
+      import { renderUVChart } from '/chart-uv.js';
+
+      const forecastData = <%- JSON.stringify(forecastData) %>;
+      renderUVChart(forecastData);
+    </script> -->
     <% } %>
   </body>
 </html>

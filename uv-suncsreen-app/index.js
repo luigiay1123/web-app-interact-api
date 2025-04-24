@@ -28,6 +28,10 @@ app.post("/forecast", async (req, res) => {
         },
       }
     );
+    if (!geoRes.data.results.length) {
+      throw new Error("No location found");
+    }
+
     const { lat, lng } = geoRes.data.results[0].geometry;
 
     // Step 2: Get UV forecast for lat/lng
